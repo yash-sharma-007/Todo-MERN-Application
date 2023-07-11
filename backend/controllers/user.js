@@ -10,7 +10,7 @@ const Register = async (req, res) => {
   try {
       const { name, email, password } = req.body;
       let user = await User.findOne({ email: req.body.email });
-      if (user) return res.send({ message: "User already Registered" });
+      if (user) return res.send({ status:false,message: "User already Registered, Please Login" });
       else {
         const new_password = await bcrypt.hash(
           password,
