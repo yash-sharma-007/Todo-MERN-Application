@@ -11,7 +11,11 @@ ConnectToDB();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+    origin: [process.env.FRONTEND_URL],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+}));
 app.use(cookieParser())
 app.use("/api/v1/users", require('./routes/user'));
 app.use("/api/v1/task", require('./routes/task'));
