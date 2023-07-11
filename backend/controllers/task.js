@@ -35,7 +35,7 @@ const UpdateTask = async(req,res,next)=>{
         task.isCompleted=!task.isCompleted;
         await task.save();
         res.status(201).json({
-            status:true,
+            success:true,
             message:'Task has been Updated'
         });
 
@@ -52,7 +52,7 @@ const DeleteTask = async(req,res,next)=>{
         if(JSON.stringify(task.user._id)!=JSON.stringify(req.user._id)) return next(new Error("Task Not Found"));
         await task.deleteOne();
         res.status(201).json({
-            status:true,
+            success:true,
             message:'Task has been Deleted'
         });
     } catch (error) {
