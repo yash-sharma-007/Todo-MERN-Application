@@ -10,7 +10,7 @@ const Register = async (req, res) => {
   try {
       const { name, email, password } = req.body;
       let user = await User.findOne({ email: req.body.email });
-      if (user) return res.send({ status:false,message: "User already Registered, Please Login" });
+      if (user) return res.send({ success:false,message: "User already Registered, Please Login" });
       else {
         const new_password = await bcrypt.hash(
           password,
@@ -36,12 +36,12 @@ const Login = async (req, res) => {
         if (!user)
           return res
             .status(404)
-            .json({ message: "Invalid Email or Password", status: false });
+            .json({ message: "Invalid Email or Password", success: false });
         const check = await bcrypt.compare(password, user.password);
         if (!check)
           return res
             .status(404)
-            .json({ message: "Invalid Email or Password", status: false });
+            .json({ message: "Invalid Email or Password", success: false });
 
         sendCookie(user, res, `Welcome Back ${user.name}`, 201);
 
