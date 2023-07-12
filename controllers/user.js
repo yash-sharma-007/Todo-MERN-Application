@@ -42,7 +42,6 @@ const Login = async (req, res,next) => {
           return res
             .status(404)
             .json({ message: "Invalid Email or Password", success: false });
-
         sendCookie(user, res, `Welcome Back ${user.name}`, 201);
 
 } catch (error) {
@@ -52,7 +51,7 @@ const Login = async (req, res,next) => {
 
 const Mydetails = async (req, res) => {
   try{
-      res.status(200).json({ success: true, user:req.user });
+     res.status(200).json({ success: true, user:req.user });
   } catch (error) {
     res.json({success:false,message:"Internal Error ..."});
   }
@@ -60,9 +59,10 @@ const Mydetails = async (req, res) => {
 
 const Logout = (req,res)=>{
   try{
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     res
     .status(200)
-    .cookie("token", "", {
+    .cookie( {
       expires: new Date(Date.now()),
       sameSite: process.env.NODE_ENV === "DEVELOPMENT" ? "lax" : "none",
       secure: process.env.NODE_ENV === "DEVELOPMENT" ? false : true,
@@ -71,6 +71,7 @@ const Logout = (req,res)=>{
       success: true,
       user: req.user,
     });
+    localStorage.removeItem('token')
   } catch (error) {
       res.json({success:false,message:"Internal Error ..."});
   }
