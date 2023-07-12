@@ -9,7 +9,6 @@ try {
     return res.status(404).json({ message: "Please Login", success: false });
   
   const {id} = jwt.verify(token, process.env.JWT_KEY);
-  console.log(id);
   req.user = await User.findById(id);
 } catch (error) {
    console.log("Internal error in auth.js") 
