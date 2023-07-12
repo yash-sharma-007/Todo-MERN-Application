@@ -6,11 +6,11 @@ const sendCookie = (user, res, message, statuscode=200) => {
     .status(statuscode)
     .cookie("token", token, {
       httpOnly: true,
-      maxage: 1 * 60 * 1000,
+      maxage: 15 * 60 * 1000,
       sameSite: process.env.NODE_ENV === "DEVELOPMENT" ? "lax" : "none",
       secure: process.env.NODE_ENV === "DEVELOPMENT" ? false : true,
     })
-    .json({ success: true, message: message,cookie:token });
+    .json({ success: true, message: message,cookie:token,user_id:user._id });
 };
 
 module.exports = sendCookie;
