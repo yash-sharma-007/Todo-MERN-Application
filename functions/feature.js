@@ -10,7 +10,7 @@ const sendCookie = (user, res, message, statuscode=200) => {
       sameSite: process.env.NODE_ENV === "DEVELOPMENT" ? "lax" : "none",
       secure: process.env.NODE_ENV === "DEVELOPMENT" ? false : true,
     })
-    .json({ success: true, message: message });
+    .json({ success: true, message: message,cookie:token });
 };
 
 module.exports = sendCookie;
