@@ -58,23 +58,21 @@ const Mydetails = async (req, res) => {
 };
 
 const Logout = (req,res)=>{
-  try{
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+  try {
     res
-    .status(200)
-    .cookie( {
-      expires: new Date(Date.now()),
-      sameSite: process.env.NODE_ENV === "DEVELOPMENT" ? "lax" : "none",
-      secure: process.env.NODE_ENV === "DEVELOPMENT" ? false : true,
-    })
-    .json({
+      .cookie("token", "", {
+        expires: new Date(Date.now()),
+        sameSite: process.env.NODE_ENV === "Development" ? "lax" : "none",
+        secure: process.env.NODE_ENV === "Development" ? false : true,
+      });
+    res.status(200).json({
       success: true,
       user: req.user,
     });
-    localStorage.removeItem('token')
   } catch (error) {
-      res.json({success:false,message:"Internal Error ..."});
+    res.status(500).json({ success: false, message: "Internal Error..." });
   }
+  
 }
 
 
