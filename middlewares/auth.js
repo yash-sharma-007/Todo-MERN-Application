@@ -4,7 +4,9 @@ const mongoose=require('mongoose')
 
 const isAuthentication = async(req,res,next)=>{
 try {
+  console.log(11111111);
   console.log(req.cookies);
+  console.log(222222222222);
   const { token } = req.cookies;
   if (!token)
     return res.status(404).json({ message: "Please Login", success: false });
