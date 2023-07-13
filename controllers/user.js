@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("../models/user");
-const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const cookie = require("cookie-parser");
 const sendCookie = require("../functions/feature");
 
 const Register = async (req, res,next) => {
