@@ -1,20 +1,17 @@
 const express=require('express')
 const Task=require('../models/task')
+const ErrorHandler=require('../middlewares/error')
 
 const newTask = async(req,res,next) =>{
     try{
-        const {title,description} =req.body
-        console.log(11111)
-        console.log(req.user);
-        console.log(22222);
+        const {title,description} =req.body 
         await Task.create({title,description,user:req.user});
-        console.log(33333)
         res.status(201).json({
             success:true,
             message:'Task added successfully',  
         });
     } catch (error) {
-        return next(new Error("Internal Error"));
+        return next(error);
     }
 }
 
@@ -26,7 +23,7 @@ const getMyTask = async(req,res,next)=>{
             tasks,
         });
     } catch (error) {
-        return next(new Error("Internal Error"));
+        return next(error);
     }
 }
 
@@ -44,7 +41,7 @@ const UpdateTask = async(req,res,next)=>{
         });
 
     } catch (error) {
-        return next(new Error("Internal Error"));
+        return next(error);
     }
 }
 
@@ -60,7 +57,7 @@ const DeleteTask = async(req,res,next)=>{
             message:'Task has been Deleted'
         });
     } catch (error) {
-        return next(new Error("Internal Error"));
+        return next(error);
     }
 }
 
