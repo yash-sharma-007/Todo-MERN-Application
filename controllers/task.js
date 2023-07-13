@@ -5,7 +5,7 @@ const User=require('../models/user')
 const newTask = async(req,res,next) =>{
     try{  
         const {title,description}=req.body;
-        const token=req.cookies.token
+        const token=req.header('auth-token')
         if (!token)
        return res.status(404).json({ message: "Please Login", success: false });
      
