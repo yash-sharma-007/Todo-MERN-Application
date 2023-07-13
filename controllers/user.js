@@ -51,7 +51,15 @@ const Login = async (req, res,next) => {
 
 const Mydetails = async (req, res) => {
   try{
-     res.status(200).json({ success: true, user:req.user });
+     
+    const {token}=req.body  
+    if (!token)
+    return res.status(404).json({ message: "Please Login", success: false });
+  
+  const {id} = jwt.verify(token, process.env.JWT_KEY);
+   const user = await User.findById(id);
+
+     res.status(200).json({ success: true, user:user });
   } catch (error) {
     res.json({success:false,message:"Internal Error ..."});
   }
@@ -60,7 +68,7 @@ const Mydetails = async (req, res) => {
 const Logout = (req,res)=>{
   try {
     res
-      .cookie("token", "", {
+      .cookie("token","", {
         expires: new Date(Date.now()),
         sameSite: process.env.NODE_ENV === "Development" ? "lax" : "none",
         secure: process.env.NODE_ENV === "Development" ? false : true,
