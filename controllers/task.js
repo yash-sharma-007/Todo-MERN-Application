@@ -4,8 +4,8 @@ const User=require('../models/user')
 
 const newTask = async(req,res,next) =>{
     try{  
-        const {title,description,token}=req.body;
-        console.log(token)
+        const {title,description}=req.body;
+        const token=req.cookies.token
         if (!token)
        return res.status(404).json({ message: "Please Login", success: false });
      
