@@ -4,7 +4,11 @@ const Task=require('../models/task')
 const newTask = async(req,res,next) =>{
     try{
         const {title,description} =req.body
+        console.log(11111)
+        console.log(req.user);
+        console.log(22222);
         await Task.create({title,description,user:req.user});
+        console.log(33333)
         res.status(201).json({
             success:true,
             message:'Task added successfully',  
