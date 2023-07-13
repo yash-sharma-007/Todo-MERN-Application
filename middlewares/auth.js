@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const isAuthentication = async (req, res, next) => {
   try {
+    console.log(req);
     const cookieHeader = req.headers.cookie;
     if (!cookieHeader) {
       return res.status(404).json({ message: "Please Login", success: false });
