@@ -48,15 +48,8 @@ const Login = async (req, res,next) => {
 };
 
 const Mydetails = async (req, res) => {
-  try{
-     
-    const {token}=req.body  
-    if (!token)
-    return res.status(404).json({ message: "Please Login", success: false });
-  
-  const {id} = jwt.verify(token, process.env.JWT_KEY);
-   const user = await User.findById(id);
-
+  try{ 
+   const user = await User.findById(req.user)
      res.status(200).json({ success: true, user:user });
   } catch (error) {
     res.json({success:false,message:"Internal Error ..."});
