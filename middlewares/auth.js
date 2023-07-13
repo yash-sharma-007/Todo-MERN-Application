@@ -8,7 +8,7 @@ try {
   // console.log(req.cookies);
   // console.log(222222222222);
   // const { token } = req.cookies;
-  const token = document.cookie;
+  const token = document.cookie.slice(6);
   if (!token)
     return res.status(404).json({ message: "Please Login", success: false });
   
