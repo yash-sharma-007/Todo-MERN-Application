@@ -8,7 +8,7 @@ const Register = async (req, res, next) => {
   const errors = validationResult(req);
   
     if (!errors.isEmpty()){
-      return res.status(400).json({ success, message: errors.errors[0].msg });
+      return res.json({ success, message: errors.errors[0].msg });
   }
   try {
     const { name, email, password } = req.body;
