@@ -1,14 +1,20 @@
 const Task=require('../models/task')
 const jwt = require('jsonwebtoken')
 const User=require('../models/user')
+const ErrorHandler=require('../middlewares/error') 
 
 const newTask = async(req,res,next) =>{
     try{  
         const {title,description}=req.body;
-          await Task.create({title,description,user:req.user});
+          const task = new Task({
+            title, description, user:req.user
+        })
+        const saveTask = await task.save()
+
         res.status(201).json({
             success:true,
             message:'Task added successfully',  
+            saveTask
         });
     } catch (error) {
         return next(error);
@@ -37,7 +43,7 @@ const UpdateTask = async(req,res,next)=>{
         await task.save();
         res.status(201).json({
             success:true,
-            message:'Task has been Updated'
+            message:'Task has been Updated',
         });
 
     } catch (error) {
