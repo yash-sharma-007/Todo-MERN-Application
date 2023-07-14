@@ -6,7 +6,7 @@ const newTask = async (req, res, next) => {
     let success=false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({success, errors: errors.array() });
+        return res.status(400).json({success, message: errors.errors[0].msg  });
     }
   try {
     const { title, description } = req.body;
